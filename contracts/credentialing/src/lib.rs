@@ -105,8 +105,8 @@ mod tests {
     #[test]
     fn test_initialize() {
         let env = Env::default();
-        let university = Address::from_string(&String::from_str(&env, "GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY5V3VQ"));
-        let admin = Address::from_string(&String::from_str(&env, "GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY5V3VR"));
+        let university = Address::from_string(&String::from_str(&env, "GBRPYHIL2CI3FV4BMSXIGSZBZMHWLXVUBQVOI2USHBGX36ZPNXMBOWWJ"));
+        let admin = Address::from_string(&String::from_str(&env, "GBBD47UZQ5CYVVEUVRYNQZX3G5KRZTAYF5XSVS2UKMCCWW5LJJLXNVQ"));
 
         CredentialingContract::initialize(env.clone(), university.clone(), admin.clone());
 
@@ -120,9 +120,9 @@ mod tests {
     #[cfg(feature = "testutils")]
     fn test_mint_and_verify() {
         let env = Env::default();
-        let university = Address::from_string(&String::from_str(&env, "GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY5V3VQ"));
-        let admin = Address::from_string(&String::from_str(&env, "GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY5V3VR"));
-        let student = Address::from_string(&String::from_str(&env, "GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY5V3VS"));
+        let university = Address::from_string(&String::from_str(&env, "GBRPYHIL2CI3FV4BMSXIGSZBZMHWLXVUBQVOI2USHBGX36ZPNXMBOWWJ"));
+        let admin = Address::from_string(&String::from_str(&env, "GBBD47UZQ5CYVVEUVRYNQZX3G5KRZTAYF5XSVS2UKMCCWW5LJJLXNVQ"));
+        let student = Address::from_string(&String::from_str(&env, "GBUQWP3BOUZX34ULNQG23RQ6F4YUSXHTQSXUSMIQ75XABZEYBI2KZ5V"));
 
         CredentialingContract::initialize(env.clone(), university, admin.clone());
 
@@ -147,9 +147,9 @@ mod tests {
     #[cfg(feature = "testutils")]
     fn test_get_transcript() {
         let env = Env::default();
-        let university = Address::from_string(&String::from_str(&env, "GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY5V3VQ"));
-        let admin = Address::from_string(&String::from_str(&env, "GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY5V3VR"));
-        let student = Address::from_string(&String::from_str(&env, "GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY5V3VS"));
+        let university = Address::from_string(&String::from_str(&env, "GBRPYHIL2CI3FV4BMSXIGSZBZMHWLXVUBQVOI2USHBGX36ZPNXMBOWWJ"));
+        let admin = Address::from_string(&String::from_str(&env, "GBBD47UZQ5CYVVEUVRYNQZX3G5KRZTAYF5XSVS2UKMCCWW5LJJLXNVQ"));
+        let student = Address::from_string(&String::from_str(&env, "GBUQWP3BOUZX34ULNQG23RQ6F4YUSXHTQSXUSMIQ75XABZEYBI2KZ5V"));
 
         CredentialingContract::initialize(env.clone(), university, admin.clone());
 
