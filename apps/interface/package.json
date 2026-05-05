@@ -13,7 +13,7 @@
     "react-dom": "^18.2.0",
     "next": "^14.0.0",
     "@stellar/freighter-api": "^6.0.0",
-    "@stellar/js-sdk": "^11.0.0"
+    "@stellar/js-sdk": "^12.0.0"
   },
   "devDependencies": {
     "typescript": "^5.0.0",
