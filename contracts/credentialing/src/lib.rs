@@ -1,6 +1,6 @@
 #![no_std]
 
-use soroban_sdk::{contract, contractimpl, contracttype, Address, AccountId, Env, Map, String, Vec};
+use soroban_sdk::{contract, contractimpl, contracttype, Address, Env, Map, String, Vec};
 
 #[derive(Clone)]
 #[contracttype]
@@ -105,8 +105,8 @@ mod tests {
     #[test]
     fn test_initialize() {
         let env = Env::default();
-        let university = Address::Account(soroban_sdk::AccountId([1; 32]));
-        let admin = Address::Account(soroban_sdk::AccountId([2; 32]));
+        let university = Address::from_string(&String::from_str(&env, "GBRPYHIL2CI3FV4BMSXIGSZBZMHWLXVUBQVOI2USHBGX36ZPNXMBOWWJ"));
+        let admin = Address::from_string(&String::from_str(&env, "GBRPYHIL2CI3FV4BMSXIGSZBZMHWLXVUBQVOI2USHBGX36ZPNXMBOWWK"));
 
         CredentialingContract::initialize(env.clone(), university.clone(), admin.clone());
 
@@ -119,9 +119,9 @@ mod tests {
     #[test]
     fn test_mint_and_verify() {
         let env = Env::default();
-        let university = Address::Account(soroban_sdk::AccountId([1; 32]));
-        let admin = Address::Account(soroban_sdk::AccountId([2; 32]));
-        let student = Address::Account(soroban_sdk::AccountId([3; 32]));
+        let university = Address::from_string(&String::from_str(&env, "GBRPYHIL2CI3FV4BMSXIGSZBZMHWLXVUBQVOI2USHBGX36ZPNXMBOWWJ"));
+        let admin = Address::from_string(&String::from_str(&env, "GBRPYHIL2CI3FV4BMSXIGSZBZMHWLXVUBQVOI2USHBGX36ZPNXMBOWWK"));
+        let student = Address::from_string(&String::from_str(&env, "GBRPYHIL2CI3FV4BMSXIGSZBZMHWLXVUBQVOI2USHBGX36ZPNXMBOWWL"));
 
         CredentialingContract::initialize(env.clone(), university, admin.clone());
 
@@ -145,9 +145,9 @@ mod tests {
     #[test]
     fn test_get_transcript() {
         let env = Env::default();
-        let university = Address::Account(soroban_sdk::AccountId([1; 32]));
-        let admin = Address::Account(soroban_sdk::AccountId([2; 32]));
-        let student = Address::Account(soroban_sdk::AccountId([3; 32]));
+        let university = Address::from_string(&String::from_str(&env, "GBRPYHIL2CI3FV4BMSXIGSZBZMHWLXVUBQVOI2USHBGX36ZPNXMBOWWJ"));
+        let admin = Address::from_string(&String::from_str(&env, "GBRPYHIL2CI3FV4BMSXIGSZBZMHWLXVUBQVOI2USHBGX36ZPNXMBOWWK"));
+        let student = Address::from_string(&String::from_str(&env, "GBRPYHIL2CI3FV4BMSXIGSZBZMHWLXVUBQVOI2USHBGX36ZPNXMBOWWL"));
 
         CredentialingContract::initialize(env.clone(), university, admin.clone());
 
