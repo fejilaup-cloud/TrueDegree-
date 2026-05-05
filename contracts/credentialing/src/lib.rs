@@ -83,7 +83,7 @@ impl CredentialingContract {
         let mut transcripts: Map<Address, Vec<Credential>> =
             storage.get::<String, Map<Address, Vec<Credential>>>(&String::from_str(&env, "transcripts")).unwrap_or(Map::new(&env));
 
-        if let Some(mut creds) = transcripts.get(student.clone()) {
+        if let Some(creds) = transcripts.get(student.clone()) {
             let mut new_creds = Vec::new(&env);
             for i in 0..creds.len() {
                 if let Some(cred) = creds.get(i) {
@@ -101,7 +101,7 @@ impl CredentialingContract {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use soroban_sdk::testutils::{Address as _, Env as _};
+    use soroban_sdk::testutils::Address as _;
 
     #[test]
     fn test_initialize() {
