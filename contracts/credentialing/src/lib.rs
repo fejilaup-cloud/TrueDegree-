@@ -1,6 +1,6 @@
 #![no_std]
 
-use soroban_sdk::{contract, contractimpl, contracttype, Address, Env, Map, String, Vec};
+use soroban_sdk::{contract, contractimpl, contracttype, Address, AccountId, Env, Map, String, Vec};
 
 #[derive(Clone)]
 #[contracttype]
@@ -101,13 +101,12 @@ impl CredentialingContract {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use soroban_sdk::testutils::Address as _;
 
     #[test]
     fn test_initialize() {
         let env = Env::default();
-        let university = Address::random(&env);
-        let admin = Address::random(&env);
+        let university = Address::Account(soroban_sdk::AccountId([1; 32]));
+        let admin = Address::Account(soroban_sdk::AccountId([2; 32]));
 
         CredentialingContract::initialize(env.clone(), university.clone(), admin.clone());
 
@@ -120,9 +119,9 @@ mod tests {
     #[test]
     fn test_mint_and_verify() {
         let env = Env::default();
-        let university = Address::random(&env);
-        let admin = Address::random(&env);
-        let student = Address::random(&env);
+        let university = Address::Account(soroban_sdk::AccountId([1; 32]));
+        let admin = Address::Account(soroban_sdk::AccountId([2; 32]));
+        let student = Address::Account(soroban_sdk::AccountId([3; 32]));
 
         CredentialingContract::initialize(env.clone(), university, admin.clone());
 
@@ -146,9 +145,9 @@ mod tests {
     #[test]
     fn test_get_transcript() {
         let env = Env::default();
-        let university = Address::random(&env);
-        let admin = Address::random(&env);
-        let student = Address::random(&env);
+        let university = Address::Account(soroban_sdk::AccountId([1; 32]));
+        let admin = Address::Account(soroban_sdk::AccountId([2; 32]));
+        let student = Address::Account(soroban_sdk::AccountId([3; 32]));
 
         CredentialingContract::initialize(env.clone(), university, admin.clone());
 
