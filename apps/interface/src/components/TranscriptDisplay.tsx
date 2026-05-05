@@ -31,8 +31,8 @@ export default function TranscriptDisplay({ transcript }: TranscriptDisplayProps
           </tr>
         </thead>
         <tbody>
-          {transcript.credentials.map((cred, idx) => (
-            <tr key={idx} className="hover:bg-gray-50">
+          {transcript.credentials.map((cred) => (
+            <tr key={`${cred.course_id}-${cred.timestamp}`} className="hover:bg-gray-50">
               <td className="border p-2">{cred.course_id}</td>
               <td className="border p-2">{cred.grade}</td>
               <td className="border p-2">{new Date(cred.timestamp * 1000).toLocaleDateString()}</td>
