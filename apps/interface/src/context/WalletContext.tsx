@@ -1,7 +1,6 @@
 'use client';
 
 import React, { createContext, useContext, useState } from 'react';
-import * as freighter from '@stellar/freighter-api';
 
 interface WalletContextType {
   address: string | null;
@@ -19,9 +18,12 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
 
   const connect = async () => {
     try {
-      const publicKey = await freighter.requestPublicKey();
-      setAddress(publicKey);
-      setIsConnected(true);
+      // Freighter wallet connection
+      if (typeof window !== 'undefined' && (window as any).freighter) {
+        const publicKey = await (window as any).freighter.getPublicKey();
+        setAddress(publicKey);
+        setIsConnected(true);
+      }
     } catch (error) {
       console.error('Failed to connect wallet:', error);
     }
@@ -33,9 +35,17 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
   };
 
   const signTx = async (tx: string): Promise<string> => {
-    return await freighter.signTransaction(tx, {
-      networkPassphrase: process.env.NEXT_PUBLIC_NETWORK_PASSPHRASE || '',
-    });
+    try {
+      if (typeof window !== 'undefined' && (window as any).freighter) {
+        return await (window as any).freighter.signTransaction(tx, {
+          networkPassphrase: process.env.NEXT_PUBLIC_NETWORK_PASSPHRASE || '',
+        });
+      }
+      throw new Error('Freighter not available');
+    } catch (error) {
+      console.error('Failed to sign transaction:', error);
+      throw error;
+    }
   };
 
   return (
