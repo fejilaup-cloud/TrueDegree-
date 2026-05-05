@@ -1,17 +1,17 @@
-import { SorobanRpc, Contract, Address } from '@stellar/stellar-sdk';
+import { Soroban, Contract, Address } from '@stellar/stellar-sdk';
 
 const rpcUrl = process.env.NEXT_PUBLIC_RPC_URL || 'https://soroban-testnet.stellar.org';
 const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID || '';
 
-export const sorobanClient = new SorobanRpc.Server(rpcUrl);
+export const sorobanClient = new Soroban.Server(rpcUrl);
 
 export async function getTranscript(studentAddress: string) {
   try {
     const result = await sorobanClient.getContractData(
       contractId,
-      SorobanRpc.xdr.ScVal.scValTypeContractData(),
+      Soroban.xdr.ScVal.scValTypeContractData(),
       {
-        discriminant: SorobanRpc.xdr.ContractDataType.contractDataTypeInstance(),
+        discriminant: Soroban.xdr.ContractDataType.contractDataTypeInstance(),
       }
     );
     return result;
@@ -24,10 +24,10 @@ export async function getTranscript(studentAddress: string) {
 export async function verifyCredential(studentAddress: string, courseId: string) {
   try {
     const result = await sorobanClient.simulateTransaction(
-      new SorobanRpc.TransactionBuilder(
+      new Soroban.TransactionBuilder(
         new Address(studentAddress),
         1,
-        new SorobanRpc.Keypair.random()
+        new Soroban.Keypair.random()
       ).build()
     );
     return result;
