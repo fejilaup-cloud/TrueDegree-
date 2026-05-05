@@ -18,8 +18,8 @@ pub struct CredentialingContract;
 impl CredentialingContract {
     pub fn initialize(env: Env, university: Address, admin_key: Address) {
         let storage = env.storage().persistent();
-        storage.set(&String::from_slice(&env, "university"), &university);
-        storage.set(&String::from_slice(&env, "admin"), &admin_key);
+        storage.set(&String::from_str(&env, "university"), &university);
+        storage.set(&String::from_str(&env, "admin"), &admin_key);
     }
 
     pub fn mint_credential(
@@ -30,7 +30,7 @@ impl CredentialingContract {
         timestamp: u64,
     ) {
         let storage = env.storage().persistent();
-        let admin: Address = storage.get(&String::from_slice(&env, "admin")).unwrap().unwrap();
+        let admin: Address = storage.get::<String, Address>(&String::from_str(&env, "admin")).unwrap().unwrap();
         admin.require_auth();
 
         let credential = Credential {
@@ -41,19 +41,19 @@ impl CredentialingContract {
         };
 
         let mut transcripts: Map<Address, Vec<Credential>> =
-            storage.get(&String::from_slice(&env, "transcripts")).unwrap_or(Map::new(&env));
+            storage.get::<String, Map<Address, Vec<Credential>>>(&String::from_str(&env, "transcripts")).unwrap_or(Map::new(&env));
 
         let mut student_creds = transcripts.get(student.clone()).unwrap_or(Vec::new(&env));
         student_creds.push_back(credential);
         transcripts.set(student, student_creds);
 
-        storage.set(&String::from_slice(&env, "transcripts"), &transcripts);
+        storage.set(&String::from_str(&env, "transcripts"), &transcripts);
     }
 
     pub fn verify_credential(env: Env, student: Address, course_id: String) -> bool {
         let storage = env.storage().persistent();
         let transcripts: Map<Address, Vec<Credential>> =
-            storage.get(&String::from_slice(&env, "transcripts")).unwrap_or(Map::new(&env));
+            storage.get::<String, Map<Address, Vec<Credential>>>(&String::from_str(&env, "transcripts")).unwrap_or(Map::new(&env));
 
         if let Some(creds) = transcripts.get(student) {
             for i in 0..creds.len() {
@@ -70,18 +70,18 @@ impl CredentialingContract {
     pub fn get_transcript(env: Env, student: Address) -> Vec<Credential> {
         let storage = env.storage().persistent();
         let transcripts: Map<Address, Vec<Credential>> =
-            storage.get(&String::from_slice(&env, "transcripts")).unwrap_or(Map::new(&env));
+            storage.get::<String, Map<Address, Vec<Credential>>>(&String::from_str(&env, "transcripts")).unwrap_or(Map::new(&env));
 
         transcripts.get(student).unwrap_or(Vec::new(&env))
     }
 
     pub fn revoke_credential(env: Env, student: Address, course_id: String) {
         let storage = env.storage().persistent();
-        let admin: Address = storage.get(&String::from_slice(&env, "admin")).unwrap().unwrap();
+        let admin: Address = storage.get::<String, Address>(&String::from_str(&env, "admin")).unwrap().unwrap();
         admin.require_auth();
 
         let mut transcripts: Map<Address, Vec<Credential>> =
-            storage.get(&String::from_slice(&env, "transcripts")).unwrap_or(Map::new(&env));
+            storage.get::<String, Map<Address, Vec<Credential>>>(&String::from_str(&env, "transcripts")).unwrap_or(Map::new(&env));
 
         if let Some(mut creds) = transcripts.get(student.clone()) {
             let mut new_creds = Vec::new(&env);
@@ -93,7 +93,7 @@ impl CredentialingContract {
                 }
             }
             transcripts.set(student, new_creds);
-            storage.set(&String::from_slice(&env, "transcripts"), &transcripts);
+            storage.set(&String::from_str(&env, "transcripts"), &transcripts);
         }
     }
 }
@@ -113,7 +113,7 @@ mod tests {
 
         let storage = env.storage().persistent();
         let stored_university: Address =
-            storage.get(&String::from_slice(&env, "university")).unwrap().unwrap();
+            storage.get::<String, Address>(&String::from_str(&env, "university")).unwrap().unwrap();
         assert_eq!(stored_university, university);
     }
 
@@ -130,15 +130,15 @@ mod tests {
         CredentialingContract::mint_credential(
             env.clone(),
             student.clone(),
-            String::from_slice(&env, "CS101"),
-            String::from_slice(&env, "A"),
+            String::from_str(&env, "CS101"),
+            String::from_str(&env, "A"),
             1000,
         );
 
         let verified = CredentialingContract::verify_credential(
             env.clone(),
             student.clone(),
-            String::from_slice(&env, "CS101"),
+            String::from_str(&env, "CS101"),
         );
         assert!(verified);
     }
@@ -156,8 +156,8 @@ mod tests {
         CredentialingContract::mint_credential(
             env.clone(),
             student.clone(),
-            String::from_slice(&env, "CS101"),
-            String::from_slice(&env, "A"),
+            String::from_str(&env, "CS101"),
+            String::from_str(&env, "A"),
             1000,
         );
 
