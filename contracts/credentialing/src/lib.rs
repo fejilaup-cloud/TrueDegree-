@@ -30,7 +30,7 @@ impl CredentialingContract {
         timestamp: u64,
     ) {
         let storage = env.storage().persistent();
-        let admin: Address = storage.get::<String, Address>(&String::from_str(&env, "admin")).unwrap().unwrap();
+        let admin: Address = storage.get::<String, Address>(&String::from_str(&env, "admin")).unwrap();
         admin.require_auth();
 
         let credential = Credential {
@@ -77,7 +77,7 @@ impl CredentialingContract {
 
     pub fn revoke_credential(env: Env, student: Address, course_id: String) {
         let storage = env.storage().persistent();
-        let admin: Address = storage.get::<String, Address>(&String::from_str(&env, "admin")).unwrap().unwrap();
+        let admin: Address = storage.get::<String, Address>(&String::from_str(&env, "admin")).unwrap();
         admin.require_auth();
 
         let mut transcripts: Map<Address, Vec<Credential>> =
@@ -113,7 +113,7 @@ mod tests {
 
         let storage = env.storage().persistent();
         let stored_university: Address =
-            storage.get::<String, Address>(&String::from_str(&env, "university")).unwrap().unwrap();
+            storage.get::<String, Address>(&String::from_str(&env, "university")).unwrap();
         assert_eq!(stored_university, university);
     }
 
