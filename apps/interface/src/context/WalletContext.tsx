@@ -19,7 +19,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
 
   const connect = async () => {
     try {
-      const publicKey = await freighter.getPublicKey();
+      const publicKey = await freighter.requestPublicKey();
       setAddress(publicKey);
       setIsConnected(true);
     } catch (error) {
