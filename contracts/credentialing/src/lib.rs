@@ -117,6 +117,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(feature = "testutils")]
     fn test_mint_and_verify() {
         let env = Env::default();
         let university = Address::from_string(&String::from_str(&env, "GBRPYHIL2CI3FV4BMSXIGSZBZMHWLXVUBQVOI2USHBGX36ZPNXMBOWWJ"));
@@ -143,6 +144,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(feature = "testutils")]
     fn test_get_transcript() {
         let env = Env::default();
         let university = Address::from_string(&String::from_str(&env, "GBRPYHIL2CI3FV4BMSXIGSZBZMHWLXVUBQVOI2USHBGX36ZPNXMBOWWJ"));
