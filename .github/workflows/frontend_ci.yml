@@ -1,0 +1,29 @@
+name: Frontend CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: apps/interface/package-lock.json
+      
+      - name: Install dependencies
+        run: cd apps/interface && npm install
+      
+      - name: Lint
+        run: cd apps/interface && npm run lint
+      
+      - name: Build
+        run: cd apps/interface && npm run build

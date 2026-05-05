@@ -1,0 +1,19 @@
+[package]
+name = "credentialing"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+soroban-sdk = { version = "21.0", features = ["contract"] }
+
+[dev-dependencies]
+soroban-sdk = { version = "21.0", features = ["contract"] }
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+strip = true
