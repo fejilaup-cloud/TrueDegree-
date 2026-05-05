@@ -1,4 +1,4 @@
-import { SorobanRpc, Contract, Address } from '@stellar/js-sdk';
+import { SorobanRpc, Contract, Address } from '@stellar/stellar-sdk';
 
 const rpcUrl = process.env.NEXT_PUBLIC_RPC_URL || 'https://soroban-testnet.stellar.org';
 const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID || '';
